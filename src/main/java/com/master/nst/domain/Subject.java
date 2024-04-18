@@ -3,6 +3,8 @@ package com.master.nst.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "subject")
 public class Subject {
@@ -60,5 +62,18 @@ public class Subject {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return espb == subject.espb && Objects.equals(id, subject.id) && Objects.equals(name, subject.name) && Objects.equals(department, subject.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, espb, department);
     }
 }
