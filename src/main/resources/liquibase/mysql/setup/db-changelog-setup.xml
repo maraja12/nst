@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+   <!-- create table depratment-->
+    <changeSet id="create-department" author="marija">
+        <sqlFile path="ddl/create-department.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+   <!-- create table subject-->
+    <changeSet id="create-subject" author="marija">
+        <sqlFile path="ddl/create-subject.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    
+    <!-- insert into depratment-->
+    <changeSet id="init-department" author="marija">
+        <sqlFile path="dml/init-department.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- insert into subject-->
+    <changeSet id="init-subject" author="marija">
+        <sqlFile path="dml/init-subject.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+</databaseChangeLog>
