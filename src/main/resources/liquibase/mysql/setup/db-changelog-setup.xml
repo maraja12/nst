@@ -11,6 +11,11 @@
     <changeSet id="create-subject" author="marija">
         <sqlFile path="ddl/create-subject.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- create table academic_title-->
+    <changeSet id="create-academic-title" author="marija">
+        <sqlFile path="ddl/create-academic-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
     
     <!-- insert into depratment-->
     <changeSet id="init-department" author="marija">
@@ -20,5 +25,10 @@
     <!-- insert into subject-->
     <changeSet id="init-subject" author="marija">
         <sqlFile path="dml/init-subject.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- insert into academic_title-->
+    <changeSet id="init-academic-title" author="marija">
+        <sqlFile path="dml/init-academic-title.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>
