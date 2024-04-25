@@ -30,7 +30,7 @@ private DepartmentConverter departmentConverter;
     public DepartmentDto save(DepartmentDto departmentDto) {
         Optional<Department> dept = departmentRepository.findByName(departmentDto.getName());
         if(dept.isPresent()){
-            throw new EntityAlreadyExistsException("" +
+            throw new EntityAlreadyExistsException(
                     "Department with name = " + departmentDto.getName() +
                     " already exists!");
         }

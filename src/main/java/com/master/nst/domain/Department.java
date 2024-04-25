@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Name is required field")
+    @NotEmpty(message = "Department name is required field")
     @Column(name = "name")
     private String name;
     @Column(name = "short_name")

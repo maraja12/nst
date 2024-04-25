@@ -12,7 +12,7 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "Name is required filed!")
+    @NotEmpty(message = "Subject name is required filed!")
     @Column(name = "name")
     private String name;
     @Column(name = "espb")

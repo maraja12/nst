@@ -1,5 +1,6 @@
 package com.master.nst.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +19,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntityAlreadyExistsException.class)
     protected ResponseEntity<MyErrorDetails> handleEntityAlreadyExistsException
             (EntityAlreadyExistsException ex){
+        MyErrorDetails myErrorDetails = new MyErrorDetails(ex.getMessage());
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<MyErrorDetails> handleDataIntegrityViolationException
+            (DataIntegrityViolationException ex){
         MyErrorDetails myErrorDetails = new MyErrorDetails(ex.getMessage());
         return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
     }
