@@ -21,6 +21,11 @@
     <changeSet id="create-education-title" author="marija">
         <sqlFile path="ddl/create-education-title.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- create table scientific_field-->
+    <changeSet id="create-scientific-field" author="marija">
+        <sqlFile path="ddl/create-scientific-field.sql" relativeToChangelogFile="true"/>
+    </changeSet>
     
     <!-- insert into depratment-->
     <changeSet id="init-department" author="marija">
@@ -40,5 +45,10 @@
     <!-- insert into education_title-->
     <changeSet id="init-education-title" author="marija">
         <sqlFile path="dml/init-education-title.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- insert into scientific_field-->
+    <changeSet id="init-scientific-field" author="marija">
+        <sqlFile path="dml/init-scientific-field.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>
