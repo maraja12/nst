@@ -39,7 +39,7 @@ public class AcademicTitleServiceImpl implements AcademicTitleService {
                 academicTitleRepository.findByName(academicTitleDto.getName());
         if(acadTitle.isPresent()){
             throw new EntityAlreadyExistsException(
-                    "Department with name = " + academicTitleDto.getName() +
+                    "Academic title with name = " + academicTitleDto.getName() +
                     " already exists!");
         }
         else{
