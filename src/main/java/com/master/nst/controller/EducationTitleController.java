@@ -39,7 +39,7 @@ public class EducationTitleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EducationTitleDto> update(EducationTitleDto educationTitleDto){
+    public ResponseEntity<EducationTitleDto> update(@Valid @RequestBody EducationTitleDto educationTitleDto){
         EducationTitleDto dto = educationTitleService.update(educationTitleDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }

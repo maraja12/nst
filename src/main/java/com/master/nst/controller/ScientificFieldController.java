@@ -2,6 +2,7 @@ package com.master.nst.controller;
 
 import com.master.nst.dto.ScientificFieldDto;
 import com.master.nst.service.ScientificFieldService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class ScientificFieldController {
     }
 
     @PostMapping
-    public ResponseEntity<ScientificFieldDto> save(ScientificFieldDto scientificFieldDto){
+    public ResponseEntity<ScientificFieldDto> save(@Valid @RequestBody ScientificFieldDto scientificFieldDto){
         ScientificFieldDto dto = scientificFieldService.save(scientificFieldDto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
@@ -38,7 +39,7 @@ public class ScientificFieldController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ScientificFieldDto> update(ScientificFieldDto scientificFieldDto){
+    public ResponseEntity<ScientificFieldDto> update(@Valid @RequestBody ScientificFieldDto scientificFieldDto){
         ScientificFieldDto dto = scientificFieldService.update(scientificFieldDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
