@@ -26,6 +26,11 @@
     <changeSet id="create-scientific-field" author="marija">
         <sqlFile path="ddl/create-scientific-field.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- create table member-->
+    <changeSet id="create-member" author="marija">
+        <sqlFile path="ddl/create-member.sql" relativeToChangelogFile="true"/>
+    </changeSet>
     
     <!-- insert into depratment-->
     <changeSet id="init-department" author="marija">
@@ -50,5 +55,10 @@
     <!-- insert into scientific_field-->
     <changeSet id="init-scientific-field" author="marija">
         <sqlFile path="dml/init-scientific-field.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- insert into member-->
+    <changeSet id="init-member" author="marija">
+        <sqlFile path="dml/init-member.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>
