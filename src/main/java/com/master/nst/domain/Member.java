@@ -3,6 +3,7 @@ package com.master.nst.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,6 +34,9 @@ public class Member {
     @ManyToOne()
     @JoinColumn(name = "scientific_field_id")
     private ScientificField scientificField;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<AcademicTitleHistory> histories;
 
     public Member() {
     }
