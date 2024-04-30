@@ -68,7 +68,7 @@ private DepartmentConverter departmentConverter;
         if(dept.isPresent()){
             Department department = dept.get();
             department.setName(departmentDto.getName());
-            department.setShort_name(departmentDto.getShort_name());
+            department.setShortName(departmentDto.getShortName());
             department = departmentRepository.save(department);
             return departmentConverter.toDto(department);
         }

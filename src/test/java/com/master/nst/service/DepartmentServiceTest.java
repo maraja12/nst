@@ -8,7 +8,6 @@ import com.master.nst.exception.EntityNotFoundException;
 import com.master.nst.repository.DepartmentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -101,7 +100,7 @@ public class DepartmentServiceTest {
         Department department = new Department(6l, "Department6", "dept6");
         when(departmentRepository.findById(department.getId())).thenReturn(Optional.of(department));
         department.setName("Department7");
-        department.setShort_name("dept7");
+        department.setShortName("dept7");
         DepartmentDto departmentDto = new DepartmentDto(6l, "Department7", "dept7");
         when(departmentRepository.save(department)).thenReturn(department);
         when(departmentConverter.toDto(department)).thenReturn(departmentDto);

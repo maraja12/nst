@@ -20,7 +20,7 @@ public class DepartmentConverterTests {
         Department department = departmentConverter.toEntity(departmentDto);
         Assertions.assertEquals(departmentDto.getId(), department.getId());
         Assertions.assertEquals(departmentDto.getName(), department.getName());
-        Assertions.assertEquals(departmentDto.getShort_name(), department.getShort_name());
+        Assertions.assertEquals(departmentDto.getShortName(), department.getShortName());
     }
 
     @Test
@@ -29,6 +29,6 @@ public class DepartmentConverterTests {
         DepartmentDto departmentDto = departmentConverter.toDto(department);
         Assertions.assertEquals(department.getId(), departmentDto.getId());
         Assertions.assertEquals(department.getName(), departmentDto.getName());
-        Assertions.assertEquals(department.getShort_name(), departmentDto.getShort_name());
+        Assertions.assertEquals(department.getShortName(), departmentDto.getShortName());
     }
 }

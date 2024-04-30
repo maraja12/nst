@@ -9,7 +9,6 @@ import com.master.nst.exception.EntityNotFoundException;
 import com.master.nst.service.DepartmentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -49,7 +48,7 @@ public class DepartmentControllerTest {
                 //kastujem zbog stringa u long
                 .andExpect(jsonPath("$.id", equalTo(departmentDto.getId().intValue())))
                 .andExpect(jsonPath("$.name", equalTo(departmentDto.getName())))
-                .andExpect(jsonPath("$.short_name", equalTo(departmentDto.getShort_name())));
+                .andExpect(jsonPath("$.shortName", equalTo(departmentDto.getShortName())));
         verify(departmentService, times(1)).save(departmentDto);
     }
 
@@ -102,14 +101,14 @@ public class DepartmentControllerTest {
     public void updateSuccessTest() throws Exception{
         DepartmentDto departmentDto = new DepartmentDto(1l, "Department1", "dept1");
         departmentDto.setName("Department2");
-        departmentDto.setShort_name("dept2");
+        departmentDto.setShortName("dept2");
         when(departmentService.update(departmentDto)).thenReturn(departmentDto);
         mockMvc.perform(put("/department").contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(departmentDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(departmentDto.getId().intValue())))
                 .andExpect(jsonPath("$.name", equalTo(departmentDto.getName())))
-                .andExpect(jsonPath("$.short_name", equalTo(departmentDto.getShort_name())));
+                .andExpect(jsonPath("$.shortName", equalTo(departmentDto.getShortName())));
         verify(departmentService, times(1)).update(departmentDto);
     }
 
@@ -133,7 +132,7 @@ public class DepartmentControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id", equalTo(departmentDto.getId().intValue())))
                 .andExpect(jsonPath("$.name", equalTo(departmentDto.getName())))
-                .andExpect(jsonPath("$.short_name", equalTo(departmentDto.getShort_name())));
+                .andExpect(jsonPath("$.shortName", equalTo(departmentDto.getShortName())));
         verify(departmentService, times(1)).findById(departmentDto.getId());
     }
 

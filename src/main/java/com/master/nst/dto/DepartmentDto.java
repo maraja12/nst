@@ -9,15 +9,15 @@ public class DepartmentDto implements Serializable {
     private Long id;
     @NotNull
     private String name;
-    private String short_name;
+    private String shortName;
 
     public DepartmentDto() {
     }
 
-    public DepartmentDto(Long id, String name, String short_name) {
+    public DepartmentDto(Long id, String name, String shortName) {
         this.id = id;
         this.name = name;
-        this.short_name = short_name;
+        this.shortName = shortName;
     }
 
     public Long getId() {
@@ -36,12 +36,12 @@ public class DepartmentDto implements Serializable {
         this.name = name;
     }
 
-    public String getShort_name() {
-        return short_name;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setShort_name(String short_name) {
-        this.short_name = short_name;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     @Override
@@ -49,11 +49,11 @@ public class DepartmentDto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DepartmentDto that = (DepartmentDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(short_name, that.short_name);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(shortName, that.shortName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, short_name);
+        return Objects.hash(id, name, shortName);
     }
 }
