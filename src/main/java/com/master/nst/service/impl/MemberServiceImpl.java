@@ -178,6 +178,7 @@ public class MemberServiceImpl implements MemberService {
 
             found.setFirstname(memberDto.getFirstname());
             found.setLastname(memberDto.getLastname());
+            found.setRole(memberDto.getRole());
             found.setDepartment(dept);
             found.setAcademicTitle(academicTitleConverter.toEntity(memberDto.getAcademicTitleDto()));
             found.setEducationTitle(educationTitleConverter.toEntity(memberDto.getEducationTitleDto()));

@@ -1,5 +1,6 @@
 package com.master.nst.dto;
 
+import com.master.nst.domain.MemberRole;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ public class MemberDto implements Serializable {
     @NotNull
     private String lastname;
 
+    private MemberRole role;
     private DepartmentDto departmentDto;
     private AcademicTitleDto academicTitleDto;
     private EducationTitleDto educationTitleDto;
@@ -21,12 +23,14 @@ public class MemberDto implements Serializable {
     public MemberDto() {
     }
 
-    public MemberDto(Long id, String firstname, String lastname, DepartmentDto departmentDto,
+    public MemberDto(Long id, String firstname, String lastname, MemberRole role,
+                     DepartmentDto departmentDto,
                      AcademicTitleDto academicTitleDto, EducationTitleDto educationTitleDto,
                      ScientificFieldDto scientificFieldDto) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.role = role;
         this.departmentDto = departmentDto;
         this.academicTitleDto = academicTitleDto;
         this.educationTitleDto = educationTitleDto;
@@ -89,16 +93,24 @@ public class MemberDto implements Serializable {
         this.scientificFieldDto = scientificFieldDto;
     }
 
+    public MemberRole getRole() {
+        return role;
+    }
+
+    public void setRole(MemberRole role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberDto memberDto = (MemberDto) o;
-        return Objects.equals(id, memberDto.id) && Objects.equals(firstname, memberDto.firstname) && Objects.equals(lastname, memberDto.lastname) && Objects.equals(departmentDto, memberDto.departmentDto) && Objects.equals(academicTitleDto, memberDto.academicTitleDto) && Objects.equals(educationTitleDto, memberDto.educationTitleDto) && Objects.equals(scientificFieldDto, memberDto.scientificFieldDto);
+        return Objects.equals(id, memberDto.id) && Objects.equals(firstname, memberDto.firstname) && Objects.equals(lastname, memberDto.lastname) && role == memberDto.role && Objects.equals(departmentDto, memberDto.departmentDto) && Objects.equals(academicTitleDto, memberDto.academicTitleDto) && Objects.equals(educationTitleDto, memberDto.educationTitleDto) && Objects.equals(scientificFieldDto, memberDto.scientificFieldDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, departmentDto, academicTitleDto, educationTitleDto, scientificFieldDto);
+        return Objects.hash(id, firstname, lastname, role, departmentDto, academicTitleDto, educationTitleDto, scientificFieldDto);
     }
 }
