@@ -36,6 +36,11 @@
     <changeSet id="create-academic-title-history" author="marija">
         <sqlFile path="ddl/create-academic-title-history.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <!-- create table department_history-->
+    <changeSet id="create-department-history" author="marija">
+        <sqlFile path="ddl/create-department-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
     
     <!-- insert into depratment-->
     <changeSet id="init-department" author="marija">
@@ -70,5 +75,10 @@
     <!-- insert into academic_title_history-->
     <changeSet id="init-academic-title-history" author="marija">
         <sqlFile path="dml/init-academic-title-history.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <!-- insert into department_history-->
+    <changeSet id="init-department-history" author="marija">
+        <sqlFile path="dml/init-department-history.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>
