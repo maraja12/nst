@@ -2,7 +2,6 @@ create table member(
     id bigint unsigned not null AUTO_INCREMENT,
     firstname varchar(100) not null,
     lastname varchar(100) not null,
-    role varchar(100),
     department_id bigint unsigned,
     academic_title_id bigint unsigned,
     education_title_id bigint unsigned,

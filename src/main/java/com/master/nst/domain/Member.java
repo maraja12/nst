@@ -20,9 +20,6 @@ public class Member {
     @NotEmpty(message = "Member's lastname is required!")
     @Column(name = "lastname")
     private String lastname;
-    @Enumerated(EnumType.STRING)
-    private MemberRole role;
-
     @ManyToOne()
     @JoinColumn(name = "department_id")
     private Department department;
@@ -44,26 +41,17 @@ public class Member {
     }
 
     public Member(Long id, String firstname, String lastname,
-                  MemberRole role, Department department,
+                  Department department,
                   AcademicTitle academicTitle,
                   EducationTitle educationTitle,
                   ScientificField scientificField) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.role = role;
         this.department = department;
         this.academicTitle = academicTitle;
         this.educationTitle = educationTitle;
         this.scientificField = scientificField;
-    }
-
-    public MemberRole getRole() {
-        return role;
-    }
-
-    public void setRole(MemberRole role) {
-        this.role = role;
     }
 
     public Long getId() {
@@ -127,11 +115,11 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(id, member.id) && Objects.equals(firstname, member.firstname) && Objects.equals(lastname, member.lastname) && role == member.role && Objects.equals(department, member.department) && Objects.equals(academicTitle, member.academicTitle) && Objects.equals(educationTitle, member.educationTitle) && Objects.equals(scientificField, member.scientificField) && Objects.equals(histories, member.histories);
+        return Objects.equals(id, member.id) && Objects.equals(firstname, member.firstname) && Objects.equals(lastname, member.lastname) && Objects.equals(department, member.department) && Objects.equals(academicTitle, member.academicTitle) && Objects.equals(educationTitle, member.educationTitle) && Objects.equals(scientificField, member.scientificField) && Objects.equals(histories, member.histories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, role, department, academicTitle, educationTitle, scientificField, histories);
+        return Objects.hash(id, firstname, lastname, department, academicTitle, educationTitle, scientificField, histories);
     }
 }
