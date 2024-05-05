@@ -5,9 +5,11 @@ import com.master.nst.domain.AcademicTitleHistory;
 import com.master.nst.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AcademicTitleHistoryRepository extends JpaRepository<AcademicTitleHistory, Long> {
 
     Optional<AcademicTitleHistory> findByMemberAndAcademicTitle (Member member, AcademicTitle academicTitle);
+    Optional<List<AcademicTitleHistory>> findByMember (Member member);
 }

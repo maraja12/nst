@@ -38,6 +38,12 @@ public class AcademicTitleHistoryController {
     public ResponseEntity<AcademicTitleHistoryDto> findById(@PathVariable("id") Long id){
         AcademicTitleHistoryDto academicTitleHistoryDto = academicTitleHistoryService.findById(id);
         return new ResponseEntity<>(academicTitleHistoryDto, HttpStatus.FOUND);
+    }
 
+    @GetMapping("/member/{member-id}")
+    public ResponseEntity<List<AcademicTitleHistoryDto>> findByDepartmentId
+            (@PathVariable("member-id") Long id){
+        List<AcademicTitleHistoryDto> ath = academicTitleHistoryService.findByMemberId(id);
+        return new ResponseEntity<>(ath, HttpStatus.FOUND);
     }
 }

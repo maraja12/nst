@@ -10,4 +10,6 @@ public interface AcademicTitleHistoryService {
     List<AcademicTitleHistoryDto> getAll();
     void delete(Long id) throws EntityNotFoundException;
     AcademicTitleHistoryDto findById(Long id) throws EntityNotFoundException;
+    List<AcademicTitleHistoryDto> findByMemberId(Long id) throws EntityNotFoundException;
+
 }
