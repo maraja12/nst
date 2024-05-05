@@ -37,4 +37,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MemberNotBelongToDepartmentException.class)
+    protected ResponseEntity<MyErrorDetails> handleMemberNotBelongToDepartmentException
+            (MemberNotBelongToDepartmentException ex){
+        MyErrorDetails myErrorDetails = new MyErrorDetails(ex.getMessage());
+        return new ResponseEntity<>(myErrorDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }
