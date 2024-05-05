@@ -2,13 +2,20 @@ package com.master.nst.service.impl;
 
 import com.master.nst.converter.impl.DepartmentConverter;
 import com.master.nst.domain.Department;
+import com.master.nst.domain.DepartmentHistory;
+import com.master.nst.domain.Member;
+import com.master.nst.domain.MemberRole;
 import com.master.nst.dto.DepartmentDto;
 import com.master.nst.exception.EntityAlreadyExistsException;
 import com.master.nst.exception.EntityNotFoundException;
+import com.master.nst.exception.MemberNotBelongToDepartmentException;
+import com.master.nst.repository.DepartmentHistoryRepository;
 import com.master.nst.repository.DepartmentRepository;
+import com.master.nst.repository.MemberRepository;
 import com.master.nst.service.DepartmentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,11 +25,18 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 private DepartmentRepository departmentRepository;
 private DepartmentConverter departmentConverter;
+private MemberRepository memberRepository;
+
+private DepartmentHistoryRepository departmentHistoryRepository;
 
     public DepartmentServiceImpl(DepartmentRepository departmentRepository,
-                                 DepartmentConverter departmentConverter) {
+                                 DepartmentConverter departmentConverter,
+                                 MemberRepository memberRepository,
+                                 DepartmentHistoryRepository departmentHistoryRepository) {
+        this.memberRepository = memberRepository;
         this.departmentRepository = departmentRepository;
         this.departmentConverter = departmentConverter;
+        this.departmentHistoryRepository = departmentHistoryRepository;
     }
 
 
@@ -91,6 +105,107 @@ private DepartmentConverter departmentConverter;
             throw new EntityNotFoundException(
                     "Department with id = " + id +
                             " does not exist!");
+        }
+    }
+
+    @Override
+    public void setManager(Long departmentId, Long memberId) {
+        Optional<Department> dept = departmentRepository.findById(departmentId);
+        Optional<Member> mem = memberRepository.findById(memberId);
+        if(dept.isPresent() && mem.isPresent()){
+            Department department = dept.get();
+            Member manager = mem.get();
+            //check if this member belongs to this department
+            if(manager.getDepartment().equals(department)){
+                //if this department already has manager
+                Optional<List<DepartmentHistory>> histories =
+                        departmentHistoryRepository.findByDepartment(department);
+                if(histories.isPresent()){
+                    List<DepartmentHistory> departmentHistories = histories.get();
+                    for (DepartmentHistory d : departmentHistories) {
+                        if(d.getEndDate() == null && (d.getRole().equals(MemberRole.MANAGER))){
+                            d.setEndDate(LocalDate.now());
+                        }
+                        if(d.getMember().equals(manager) && d.getEndDate() == null){
+                            throw new EntityAlreadyExistsException(
+                                    "This employee is already member of department management!"
+                            );
+                        }
+                    }
+                    DepartmentHistory departmentHistory = new DepartmentHistory(
+                            null, LocalDate.now(), null, MemberRole.MANAGER, department, manager);
+                    departmentHistoryRepository.save(departmentHistory);
+                    department.setManager(manager);
+                    departmentRepository.save(department);
+                }
+                else{
+                    //If history for this department does not exist, create one.
+                    DepartmentHistory departmentHistory = new DepartmentHistory(
+                            null, LocalDate.now(), null, MemberRole.MANAGER, department, manager);
+                    departmentHistoryRepository.save(departmentHistory);
+                    department.setManager(manager);
+                    departmentRepository.save(department);
+                }
+            }
+            else{
+                throw new MemberNotBelongToDepartmentException(
+                        "Member with id = "+ memberId + " does not belong to department with id = " + departmentId
+                );
+            }
+            }
+        else{
+            throw new EntityNotFoundException("Nonexistent department or member id!");
+        }
+    }
+
+    @Override
+    public void setSecretary(Long departmentId, Long memberId) {
+
+        Optional<Department> dept = departmentRepository.findById(departmentId);
+        Optional<Member> mem = memberRepository.findById(memberId);
+        if(dept.isPresent() && mem.isPresent()){
+            Department department = dept.get();
+            Member secretary = mem.get();
+            //check if this member belongs to this department
+            if(secretary.getDepartment().equals(department)){
+                //if this department already has secretary
+                Optional<List<DepartmentHistory>> histories =
+                        departmentHistoryRepository.findByDepartment(department);
+                if(histories.isPresent()){
+                    List<DepartmentHistory> departmentHistories = histories.get();
+                    for (DepartmentHistory d : departmentHistories) {
+                        if(d.getEndDate() == null && (d.getRole().equals(MemberRole.SECRETARY))){
+                            d.setEndDate(LocalDate.now());
+                        }
+                        if(d.getMember().equals(secretary) && d.getEndDate() == null){
+                            throw new EntityAlreadyExistsException(
+                                    "This employee is already member of department management!"
+                            );
+                        }
+                    }
+                    DepartmentHistory departmentHistory = new DepartmentHistory(
+                            null, LocalDate.now(), null, MemberRole.SECRETARY, department, secretary);
+                    departmentHistoryRepository.save(departmentHistory);
+                    department.setSecretary(secretary);
+                    departmentRepository.save(department);
+                }
+                else{
+                    //If history for this department does not exist, create one.
+                    DepartmentHistory departmentHistory = new DepartmentHistory(
+                            null, LocalDate.now(), null, MemberRole.SECRETARY, department, secretary);
+                    departmentHistoryRepository.save(departmentHistory);
+                    department.setSecretary(secretary);
+                    departmentRepository.save(department);
+                }
+            }
+            else{
+                throw new MemberNotBelongToDepartmentException(
+                        "Member with id = "+ memberId + " does not belong to department with id = " + departmentId
+                );
+            }
+        }
+        else{
+            throw new EntityNotFoundException("Nonexistent department or member id!");
         }
     }
 }

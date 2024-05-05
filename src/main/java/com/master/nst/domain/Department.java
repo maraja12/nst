@@ -2,6 +2,7 @@ package com.master.nst.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,17 @@ public class Department {
     private String name;
     @Column(name = "short_name")
     private String shortName;
+
+    @OneToOne()
+    @JoinColumn(name = "manager_id")
+    private Member manager;
+
+    @OneToOne()
+    @JoinColumn(name = "secretary_id")
+    private Member secretary;
+
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    private List<DepartmentHistory> histories;
 
     public Department() {
     }
@@ -47,6 +59,22 @@ public class Department {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Member getManager() {
+        return manager;
+    }
+
+    public void setManager(Member manager) {
+        this.manager = manager;
+    }
+
+    public Member getSecretary() {
+        return secretary;
+    }
+
+    public void setSecretary(Member secretary) {
+        this.secretary = secretary;
     }
 
     @Override

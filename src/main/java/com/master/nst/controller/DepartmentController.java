@@ -1,11 +1,9 @@
 package com.master.nst.controller;
 
-import com.master.nst.domain.Department;
 //import org.springframework.beans.factory.annotation.Autowired;
 import com.master.nst.dto.DepartmentDto;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
+        import jakarta.validation.Valid;
+        import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.master.nst.service.DepartmentService;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +55,32 @@ public class DepartmentController {
         return new ResponseEntity<>(deptDto, HttpStatus.OK);
     }
 
+//    @PostMapping("/{dept-manager}")
+//    public ResponseEntity<String> setManager(
+//            @PathVariable("dept-manager") String deptManger){
+//        String[] ids = deptManger.split(",");
+//        Long deptId = Long.parseLong(ids[0]);
+//        Long managerId = Long.parseLong(ids[1]);
+//        departmentService.setManager(deptId, managerId);
+//        return new ResponseEntity<>("Manager of department with id = " +deptId+" is saved!",
+//                HttpStatus.OK);
+//    }
 
+    @PostMapping("/{dept-id}/manager/{member-id}")
+    public ResponseEntity<String> setManager(
+            @PathVariable("dept-id")Long deptId,
+            @PathVariable("member-id")Long memberId){
+        departmentService.setManager(deptId, memberId);
+        return new ResponseEntity<>("Manager of department with id = " +deptId+" is saved!",
+                HttpStatus.OK);
+    }
+
+    @PostMapping("/{dept-id}/secretary/{member-id}")
+    public ResponseEntity<String> setSecretary(
+            @PathVariable("dept-id")Long deptId,
+            @PathVariable("member-id")Long memberId){
+        departmentService.setSecretary(deptId, memberId);
+        return new ResponseEntity<>("Secretary of department with id = " +deptId+" is saved!",
+                HttpStatus.OK);
+    }
 }
