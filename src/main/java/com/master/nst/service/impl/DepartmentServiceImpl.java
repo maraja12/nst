@@ -123,29 +123,22 @@ private DepartmentHistoryRepository departmentHistoryRepository;
                 if(histories.isPresent()){
                     List<DepartmentHistory> departmentHistories = histories.get();
                     for (DepartmentHistory d : departmentHistories) {
-                        if(d.getEndDate() == null && (d.getRole().equals(MemberRole.MANAGER))){
-                            d.setEndDate(LocalDate.now());
-                        }
                         if(d.getMember().equals(manager) && d.getEndDate() == null){
                             throw new EntityAlreadyExistsException(
                                     "This employee is already member of department management!"
                             );
                         }
+                        if(d.getEndDate() == null && (d.getRole().equals(MemberRole.MANAGER))){
+                            d.setEndDate(LocalDate.now());
+                        }
                     }
+                }
+                    //Create new department history
                     DepartmentHistory departmentHistory = new DepartmentHistory(
                             null, LocalDate.now(), null, MemberRole.MANAGER, department, manager);
                     departmentHistoryRepository.save(departmentHistory);
                     department.setManager(manager);
                     departmentRepository.save(department);
-                }
-                else{
-                    //If history for this department does not exist, create one.
-                    DepartmentHistory departmentHistory = new DepartmentHistory(
-                            null, LocalDate.now(), null, MemberRole.MANAGER, department, manager);
-                    departmentHistoryRepository.save(departmentHistory);
-                    department.setManager(manager);
-                    departmentRepository.save(department);
-                }
             }
             else{
                 throw new MemberNotBelongToDepartmentException(
@@ -174,29 +167,21 @@ private DepartmentHistoryRepository departmentHistoryRepository;
                 if(histories.isPresent()){
                     List<DepartmentHistory> departmentHistories = histories.get();
                     for (DepartmentHistory d : departmentHistories) {
-                        if(d.getEndDate() == null && (d.getRole().equals(MemberRole.SECRETARY))){
-                            d.setEndDate(LocalDate.now());
-                        }
                         if(d.getMember().equals(secretary) && d.getEndDate() == null){
                             throw new EntityAlreadyExistsException(
                                     "This employee is already member of department management!"
                             );
+                        }if(d.getEndDate() == null && (d.getRole().equals(MemberRole.SECRETARY))){
+                            d.setEndDate(LocalDate.now());
                         }
                     }
+                }
+                    //Create new department history
                     DepartmentHistory departmentHistory = new DepartmentHistory(
                             null, LocalDate.now(), null, MemberRole.SECRETARY, department, secretary);
                     departmentHistoryRepository.save(departmentHistory);
                     department.setSecretary(secretary);
                     departmentRepository.save(department);
-                }
-                else{
-                    //If history for this department does not exist, create one.
-                    DepartmentHistory departmentHistory = new DepartmentHistory(
-                            null, LocalDate.now(), null, MemberRole.SECRETARY, department, secretary);
-                    departmentHistoryRepository.save(departmentHistory);
-                    department.setSecretary(secretary);
-                    departmentRepository.save(department);
-                }
             }
             else{
                 throw new MemberNotBelongToDepartmentException(
