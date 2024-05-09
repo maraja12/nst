@@ -34,7 +34,8 @@ public class Member {
     @JoinColumn(name = "scientific_field_id")
     private ScientificField scientificField;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
+//    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<AcademicTitleHistory> histories;
 
     public Member() {
@@ -115,11 +116,11 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(id, member.id) && Objects.equals(firstname, member.firstname) && Objects.equals(lastname, member.lastname) && Objects.equals(department, member.department) && Objects.equals(academicTitle, member.academicTitle) && Objects.equals(educationTitle, member.educationTitle) && Objects.equals(scientificField, member.scientificField) && Objects.equals(histories, member.histories);
+        return Objects.equals(id, member.id) && Objects.equals(firstname, member.firstname) && Objects.equals(lastname, member.lastname) && Objects.equals(department, member.department) && Objects.equals(academicTitle, member.academicTitle) && Objects.equals(educationTitle, member.educationTitle) && Objects.equals(scientificField, member.scientificField);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, department, academicTitle, educationTitle, scientificField, histories);
+        return Objects.hash(id, firstname, lastname, department, academicTitle, educationTitle, scientificField);
     }
 }
