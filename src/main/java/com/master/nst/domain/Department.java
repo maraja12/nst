@@ -25,7 +25,7 @@ public class Department {
     @JoinColumn(name = "secretary_id")
     private Member secretary;
 
-    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     private List<DepartmentHistory> histories;
 
     public Department() {

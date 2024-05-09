@@ -25,7 +25,7 @@ public class DepartmentHistory {
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
     @ManyToOne()
