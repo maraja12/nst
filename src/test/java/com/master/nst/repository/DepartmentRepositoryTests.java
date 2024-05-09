@@ -1,6 +1,7 @@
 package com.master.nst.repository;
 
 import com.master.nst.domain.Department;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +17,13 @@ public class DepartmentRepositoryTests {
     private DepartmentRepository departmentRepository;
 
     @Test
+    @Transactional
     public void findByNameTest(){
-        Department department = departmentRepository.save
-                (new Department(1l, "Department1", "dept1"));
-        assertNotNull(department);
-        Optional<Department> dept = departmentRepository.findByName(department.getName());
-        assertTrue(dept.isPresent());
-        assertEquals(department, dept.get());
+        Department department = new Department(1l, "Department1", "dept1");
+        Department saved = departmentRepository.save(department);
+        assertNotNull(saved);
+        Optional<Department> found = departmentRepository.findByName(saved.getName());
+        assertTrue(found.isPresent());
+        assertEquals(department, found.get());
     }
 }
