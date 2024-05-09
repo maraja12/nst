@@ -4,11 +4,13 @@ package com.master.nst.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.master.nst.dto.DepartmentDto;
+import com.master.nst.dto.MemberDto;
 import com.master.nst.exception.EntityAlreadyExistsException;
 import com.master.nst.exception.EntityNotFoundException;
 import com.master.nst.service.DepartmentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -142,6 +144,55 @@ public class DepartmentControllerTest {
         when(departmentService.findById(departmentDto.getId())).thenThrow(EntityNotFoundException.class);
         mockMvc.perform(get("/department/{1}", 1)
                         .content(objectMapper.writeValueAsString(departmentDto)))
+                .andExpect(status().isNotFound());
+    }
+    @Test
+    public void setManagerSuccessTest() throws Exception{
+
+        DepartmentDto departmentDto = new DepartmentDto(1l, "Department1", "dept1");
+        MemberDto memberDto = new MemberDto(1l, "Janko", "Jankovic", departmentDto, null, null, null);
+        Mockito.doNothing().when(departmentService).setManager(departmentDto.getId(), memberDto.getId());
+        ResultActions response = mockMvc.perform
+                (post("/department/{dept-id}/manager/{member-id}",1 ,1))
+                    .andExpect(status().isOk())
+                .andExpect(content().string(
+                        "Manager of department with id = " +1+" is saved!"));
+        verify(departmentService, times(1))
+                .setManager(departmentDto.getId(), memberDto.getId());
+    }
+
+    @Test
+    public void setManagerFailureTest() throws Exception{
+        DepartmentDto departmentDto = new DepartmentDto(1l, "Department1", "dept1");
+        MemberDto memberDto = new MemberDto(1l, "Janko", "Jankovic", null, null, null, null);
+        doThrow(EntityNotFoundException.class).when(departmentService).setManager
+                (departmentDto.getId(), memberDto.getId());
+        mockMvc.perform(post("/department/{dept-id}/manager/{member-id}", 1, 1))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void setSecretarySuccessTest() throws Exception{
+
+        DepartmentDto departmentDto = new DepartmentDto(1l, "Department1", "dept1");
+        MemberDto memberDto = new MemberDto(1l, "Janko", "Jankovic", departmentDto, null, null, null);
+        Mockito.doNothing().when(departmentService).setSecretary(departmentDto.getId(), memberDto.getId());
+        mockMvc.perform(post(
+                "/department/{dept-id}/secretary/{member-id}",1 ,1))
+                .andExpect(status().isOk())
+                .andExpect(content().string(
+                        "Secretary of department with id = " +1+" is saved!"));
+        verify(departmentService, times(1))
+                .setSecretary(departmentDto.getId(), memberDto.getId());
+    }
+
+    @Test
+    public void setSecretaryFailureTest() throws Exception{
+        DepartmentDto departmentDto = new DepartmentDto(2l, "Department1", "dept1");
+        MemberDto memberDto = new MemberDto(2l, "Janko", "Jankovic", null, null, null, null);
+        doThrow(EntityNotFoundException.class).when(departmentService).setSecretary
+                (departmentDto.getId(), memberDto.getId());
+        mockMvc.perform(post("/department/{dept-id}/secretary/{member-id}", 2, 2))
                 .andExpect(status().isNotFound());
     }
 }
