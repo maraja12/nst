@@ -11,8 +11,6 @@ jobs:
         run: echo "Job is automatically triggered by a ${{ github.event_name }}"
       - name: Operating system information 
         run: echo "OS is ${{ runner.os }}"
-      - name: Repository URL information
-        run: echo "URL is ${{ vars.URL }}"
       - name: Branch and repository name
         run: echo "Branch is ${{ github.ref }} on repository ${{ github.repository }}"
       - name: Checkout repository code
