@@ -14,11 +14,11 @@ jobs:
       - name: Repository URL information
         run: echo "URL is ${{ vars.URL }}"
       - name: Branch and repository name
-      - run: echo "Branch is ${{ github.ref }} on repository ${{ github.repository }}"
+        run: echo "Branch is ${{ github.ref }} on repository ${{ github.repository }}"
       - name: Checkout repository code
         uses: actions/checkout@v4
       - name: Name of cloned repository
-      - run: echo "The repository ${{ github.repository }} has been cloned"
+        run: echo "The repository ${{ github.repository }} has been cloned"
       - name: List files in the repository
         run: ls -l ${{ github.workspace }}
       - name: Show job status
